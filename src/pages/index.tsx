@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { LuFeather, LuGithub, LuMoon, LuSun } from "react-icons/lu";
 
 const Home: NextPage = () => {
   return (
@@ -11,7 +12,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className=" container prose prose-invert">
+      <main className=" prose prose-invert container">
         <Hero />
         <Preview />
         <Features />
@@ -26,15 +27,32 @@ export default Home;
 
 const Header: React.FC = () => {
   return (
-    <header className=" sticky top-0 z-50 w-full bg-slate-700 shadow-xl transition-all duration-300 ease-in-out">
-      <div className="container flex flex-row justify-between gap-x-4 py-8">
-        <span className="text-xl font-bold">Resume Factory</span>
-        <nav>
-          <ul className="flex flex-row items-center gap-x-8 sm:gap-x-16">
-            <li>Lorem</li>
-            <li>Ipsum</li>
-            <li>Dalamo</li>
-          </ul>
+    <header className="sticky top-0 z-50 w-full bg-white font-mono text-xl font-medium shadow-xl transition-all duration-300 ease-in-out">
+      <div className="flex max-w-[1366px] flex-row justify-between gap-x-4 px-4 py-[20px]">
+        <Link href="/" className="flex flex-row items-center gap-x-[10px] ">
+          <LuFeather size="30px" />
+          <p className="">Resume Factory</p>
+        </Link>
+        <nav className="flex flex-row items-center gap-x-8 sm:gap-x-16">
+          <Link href="#about">About</Link>
+          <Link href="#faq">FAQ</Link>
+          <Link href="/blog">Blog</Link>
+          <Link href="/api">API</Link>
+          <div className="flex flex-row gap-x-[20px]">
+            <Link
+              href="https://github.com/CB-BC/resume-factory"
+              target="_blank"
+            >
+              <LuGithub size="25px" />
+            </Link>
+            <LuMoon size="25px" />
+          </div>
+          <Link
+            href="/"
+            className="rounded bg-accent px-[40px] py-[10px] text-bg shadow"
+          >
+            Sign Up
+          </Link>
         </nav>
       </div>
     </header>
