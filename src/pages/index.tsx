@@ -9,8 +9,14 @@ import {
   LuLineChart,
   LuEdit3,
   LuLayoutList,
+  LuArchive,
+  LuFileEdit,
+  LuEye,
+  LuLayoutTemplate,
+  LuFileArchive,
 } from "react-icons/lu";
 import { BenefitsCard } from "~/components/BenefitsCard";
+import { FeaturesCard } from "~/components/FeaturesCard";
 
 const Home: NextPage = () => {
   return (
@@ -181,7 +187,7 @@ const Benefits: React.FC = () => {
       <h2 className="mb-12 text-center font-mono text-5xl font-bold">
         Optimize your job search
       </h2>
-      <div className="flex flex-row justify-center gap-8">
+      <div className=" mb-40 flex flex-row justify-center gap-8">
         <BenefitsCard
           title="Enhanced efficiency"
           description="With all your experiences in one place, you can effortlessly select and customize relevant details, allowing you to focus on other crucial aspects of your job search."
@@ -204,14 +210,73 @@ const Benefits: React.FC = () => {
 
 const Features: React.FC = () => {
   return (
-    <section>
-      <h2>FEATURES</h2>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi modi a
-        ratione harum, rerum magni repellendus! Possimus consequatur saepe, odio
-        minus tempore laborum eveniet architecto, pariatur debitis velit
-        obcaecati provident?
-      </p>
+    <section className="mb-40">
+      <div className="ml-36">
+        <p className="mb-4 font-mono text-base font-bold text-accent">
+          Features
+        </p>
+        <h2 className="mb-11 font-mono text-5xl font-bold">What to expect</h2>
+      </div>
+      <div className="flex flex-row justify-between gap-14">
+        <div className="flex max-w-2xl flex-col gap-4">
+          <div className="flex flex-row justify-between gap-4">
+            <FeaturesCard
+              title="Career archive"
+              icon={
+                <LuArchive
+                  size="90px"
+                  className="text-accent transition-all duration-300 ease-in-out group-hover:text-bg"
+                />
+              }
+            />
+            <FeaturesCard
+              title="Dynamic editing"
+              icon={
+                <LuFileEdit
+                  size="90px"
+                  className="text-accent transition-all duration-300 ease-in-out group-hover:text-bg"
+                />
+              }
+            />
+            <FeaturesCard
+              title="Real-time preview"
+              icon={
+                <LuEye
+                  size="90px"
+                  className="text-accent transition-all duration-300 ease-in-out group-hover:text-bg"
+                />
+              }
+            />
+          </div>
+          <div className="flex flex-row justify-end gap-4">
+            <FeaturesCard
+              title="Professional templates"
+              icon={
+                <LuLayoutTemplate
+                  size="90px"
+                  className="text-accent transition-all duration-300 ease-in-out group-hover:text-bg"
+                />
+              }
+            />
+            <FeaturesCard
+              title="Privacy and security"
+              icon={
+                <LuFileArchive
+                  size="90px"
+                  className="text-accent transition-all duration-300 ease-in-out group-hover:text-bg"
+                />
+              }
+            />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center gap-5 font-mono">
+          <p className="text-4xl font-semibold text-fg">
+            Your achievements all in one place
+          </p>
+          <p className="text-2xl">Write once. Edit easily. Reuse endlessly.</p>
+          <p className="text-xl text-fg-light">We'll take care of the rest</p>
+        </div>
+      </div>
     </section>
   );
 };
