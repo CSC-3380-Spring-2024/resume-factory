@@ -4,6 +4,10 @@ export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      boxShadow: {
+        card: "0 4px 50px -16px rgba(0, 0, 0, 0.25)",
+      },
+
       colors: {
         accent: "#70384C",
         bg: "#FFFFFF",

@@ -1,7 +1,16 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { LuFeather, LuGithub, LuMoon, LuSun } from "react-icons/lu";
+import {
+  LuFeather,
+  LuGithub,
+  LuMoon,
+  LuSun,
+  LuLineChart,
+  LuEdit3,
+  LuLayoutList,
+} from "react-icons/lu";
+import { BenefitsCard } from "~/components/BenefitsCard";
 
 const Home: NextPage = () => {
   return (
@@ -31,7 +40,7 @@ export default Home;
 const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-white font-mono text-xl font-medium shadow-xl transition-all duration-300 ease-in-out">
-      <div className="flex max-w-[1366px] flex-row justify-between gap-x-4 px-4 py-[20px]">
+      <div className="mx-auto flex max-w-[1366px] flex-row justify-between gap-x-4 px-4 py-[20px]">
         <Link href="/" className="flex flex-row items-center gap-x-[10px] ">
           <LuFeather size="30px" />
           <p className="">Resume Factory</p>
@@ -111,13 +120,54 @@ const ResumeCount: React.FC<{ count: number }> = ({ count }) => {
 const About: React.FC = () => {
   return (
     <section>
-      <h2>FEATURES</h2>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi modi a
-        ratione harum, rerum magni repellendus! Possimus consequatur saepe, odio
-        minus tempore laborum eveniet architecto, pariatur debitis velit
-        obcaecati provident?
-      </p>
+      <div className="ml-36">
+        <p className="mb-4 font-mono text-base font-bold text-accent">About</p>
+        <h2 className="mb-11 font-mono text-5xl font-bold">
+          Why Resume Factory?
+        </h2>
+      </div>
+      <div className="mb-44 flex flex-row items-center justify-center gap-3">
+        <div className=" flex min-w-max flex-col items-end gap-3">
+          <div className="max-w-sm rounded-lg bg-bg p-6 shadow-card">
+            <h3 className="mb-3 font-mono text-2xl font-semibold">
+              Good resumes Take Time
+            </h3>
+            <p className="text-xl leading-[1.5] text-fg-light">
+              It takes a lot of time and effort to meticulously craft a perfect,
+              personalized resume tailored specifically to each job
+              application’s requirements.
+            </p>
+          </div>
+          <div className="max-w-md rounded-lg bg-bg p-6 shadow-card">
+            <h3 className="mb-3 font-mono text-2xl font-semibold">
+              No One likes wasting time
+            </h3>
+            <p className="text-xl leading-[1.5] text-fg-light">
+              Submitting generic resumes that fail to highlight your unique
+              skills and experiences often leaves applicants feeling exhausted,
+              frustrated, and even hopeless at times.
+            </p>
+          </div>
+        </div>
+        <div className="max-w-xl  rounded-lg bg-bg p-6 shadow-card">
+          <h3 className="mb-3 font-mono text-2xl font-semibold">
+            How We Can Help
+          </h3>
+          <p className="mb-3 text-xl leading-[1.5] text-fg-light">
+            Resume Factory eliminates the need for endless rewrites. Our
+            platform, empowers users to create highly customized resumes for
+            every opportunity.
+          </p>
+          <p className="text-xl leading-[1.5] text-fg-light">
+            We’ll store all your projects and job experiences in one place, so
+            you can select which ones make you the ideal candidate for the job.
+            Resume Factory will build a customized resume using one of our many
+            templates, so that you can properly showcase your skills and
+            experiences—maximizing your chances of securing interviews and
+            landing the job you deserve.
+          </p>
+        </div>
+      </div>
     </section>
   );
 };
@@ -125,13 +175,29 @@ const About: React.FC = () => {
 const Benefits: React.FC = () => {
   return (
     <section>
-      <h2>FEATURES</h2>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi modi a
-        ratione harum, rerum magni repellendus! Possimus consequatur saepe, odio
-        minus tempore laborum eveniet architecto, pariatur debitis velit
-        obcaecati provident?
+      <p className="mb-4 text-center font-mono text-base font-bold text-accent">
+        Benefits
       </p>
+      <h2 className="mb-12 text-center font-mono text-5xl font-bold">
+        Optimize your job search
+      </h2>
+      <div className="flex flex-row justify-center gap-8">
+        <BenefitsCard
+          title="Enhanced efficiency"
+          description="With all your experiences in one place, you can effortlessly select and customize relevant details, allowing you to focus on other crucial aspects of your job search."
+          icon={<LuLineChart size="90px" className="text-accent" />}
+        />
+        <BenefitsCard
+          title="Tailored for success"
+          description="Each job opportunity is unique, and a one-size-fits-all resume may not cut it. Resume Factory allows you to effortlessly select and modify the information stored in your career archive."
+          icon={<LuEdit3 size="90px" className="text-accent" />}
+        />
+        <BenefitsCard
+          title="Professional and polished"
+          description="Our carefully designed resume templates and formatting options make it easy to create aesthetically pleasing resumes that make a lasting impression."
+          icon={<LuLayoutList size="90px" className="text-accent" />}
+        />
+      </div>
     </section>
   );
 };
