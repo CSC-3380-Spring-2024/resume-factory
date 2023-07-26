@@ -17,6 +17,7 @@ import {
 } from "react-icons/lu";
 import { BenefitsCard } from "~/components/BenefitsCard";
 import { FeaturesCard } from "~/components/FeaturesCard";
+import * as Accordion from "@radix-ui/react-accordion";
 
 const Home: NextPage = () => {
   return (
@@ -284,13 +285,12 @@ const Features: React.FC = () => {
 const FAQ: React.FC = () => {
   return (
     <section>
-      <h2>FEATURES</h2>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi modi a
-        ratione harum, rerum magni repellendus! Possimus consequatur saepe, odio
-        minus tempore laborum eveniet architecto, pariatur debitis velit
-        obcaecati provident?
+      <p className="mb-4 text-center font-mono text-base font-bold text-accent">
+        FAQ
       </p>
+      <h2 className="mb-12 text-center font-mono text-5xl font-bold">
+        Frequently asked questions
+      </h2>
     </section>
   );
 };
