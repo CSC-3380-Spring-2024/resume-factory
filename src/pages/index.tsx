@@ -284,13 +284,57 @@ const Features: React.FC = () => {
 
 const FAQ: React.FC = () => {
   return (
-    <section>
+    <section className="mb-72">
       <p className="mb-4 text-center font-mono text-base font-bold text-accent">
         FAQ
       </p>
       <h2 className="mb-12 text-center font-mono text-5xl font-bold">
         Frequently asked questions
       </h2>
+      <div className="m-auto flex w-[908px] flex-col p-5 font-mono text-xl">
+        <Accordion.Root type="single" collapsible>
+          <Accordion.Item
+            className="mx-auto mb-12 w-[908px] rounded border bg-bg [&*]:shadow-card"
+            value="item-1"
+          >
+            <Accordion.Header className="shadow-card">
+              <Accordion.Trigger className="shadow-card">
+                Can I create multiple resumes for different career paths?
+              </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Content className="shadow-card">
+              Super good answer thumb up!
+            </Accordion.Content>
+          </Accordion.Item>
+          {/* <Accordion.Item
+            className="m-auto mb-12 w-[908px] rounded shadow-card"
+            value="item-2"
+          >
+            <Accordion.Trigger className="">
+              Can I create multiple resumes for different career paths?
+            </Accordion.Trigger>
+            <Accordion.Content>Super good answer thumb up!</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item
+            className="m-auto mb-12 w-[908px] rounded shadow-card"
+            value="item-3"
+          >
+            <Accordion.Trigger className="">
+              Can I create multiple resumes for different career paths?
+            </Accordion.Trigger>
+            <Accordion.Content>Super good answer thumb up!</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item
+            className="m-auto mb-12 w-[908px] rounded shadow-card"
+            value="item-4"
+          >
+            <Accordion.Trigger className="">
+              Can I create multiple resumes for different career paths?
+            </Accordion.Trigger>
+            <Accordion.Content>Super good answer thumb up!</Accordion.Content>
+          </Accordion.Item> */}
+        </Accordion.Root>
+      </div>
     </section>
   );
 };
@@ -305,15 +349,5 @@ const CTA: React.FC = () => {
 };
 
 const Footer: React.FC = () => {
-  return (
-    <footer>
-      <nav>
-        <ul>
-          <li>Lorem</li>
-          <li>Ipsum</li>
-          <li>Dalamo</li>
-        </ul>
-      </nav>
-    </footer>
-  );
+  return <footer></footer>;
 };
