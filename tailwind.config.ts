@@ -13,6 +13,9 @@ export default {
         bg: "#FFFFFF",
         fg: "#000000",
         "fg-light": "#5B4D52",
+        "bg-dark": "#F4F2F2",
+        "bg-darker": "#EAE6E6",
+        "bg-darkest": "#3D3437"
       },
       fontFamily: {
         sans: ["var(--font-montserrat)"],
