@@ -12,10 +12,14 @@ interface Props {
 
 export const FooterColumn: React.FC<Props> = ({ mainLink, subLinks }) => {
   return (
-    <div>
-      <Link href={mainLink.url}>{mainLink.label}</Link>
+    <div className="flex flex-col gap-2 text-xl">
+      <Link className="font-mono font-semibold" href={mainLink.url}>
+        {mainLink.label}
+      </Link>
       {subLinks.map((link) => (
-        <Link href={link.url}>{link.label}</Link>
+        <Link className="" href={link.url}>
+          {link.label}
+        </Link>
       ))}
     </div>
   );

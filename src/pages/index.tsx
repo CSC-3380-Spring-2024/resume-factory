@@ -345,13 +345,31 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-bg-darker">
       <Container>
-        <div className="flex flex-row items-stretch py-36">
-          <div className="">
+        <div className="ml-36 flex flex-row items-stretch justify-center py-36">
+          <div className="flex flex-row justify-between gap-20 pr-20 pt-10">
             <FooterColumn
               mainLink={{ label: "Home", url: "/" }}
               subLinks={[
                 { label: "About", url: "/" },
                 { label: "Benefits", url: "/" },
+                { label: "Features", url: "/" },
+                { label: "FAQs", url: "/" },
+              ]}
+            ></FooterColumn>
+            <FooterColumn
+              mainLink={{ label: "Blog", url: "/" }}
+              subLinks={[
+                { label: "Blog Title 1", url: "/" },
+                { label: "Title 2", url: "/" },
+                { label: "Number 3", url: "/" },
+                { label: "The last blog", url: "/" },
+              ]}
+            ></FooterColumn>
+            <FooterColumn
+              mainLink={{ label: "Home", url: "/" }}
+              subLinks={[
+                { label: "API", url: "/" },
+                { label: "GitHub", url: "/" },
               ]}
             ></FooterColumn>
           </div>
