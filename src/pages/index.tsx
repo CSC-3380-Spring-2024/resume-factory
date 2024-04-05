@@ -116,7 +116,10 @@ const ResumeCount: React.FC<{ count: number }> = ({ count }) => {
 
   return (
     <Container>
-      <section className="mb-[72px] flex flex-row items-center justify-between gap-x-14">
+      <section
+        id="about"
+        className="mb-[72px] flex flex-row items-center justify-between gap-x-14"
+      >
         {bar}
         <p className="min-w-max font-mono text-xl font-medium text-fg-light">
           {count} resumes created so far
@@ -171,9 +174,9 @@ const About: React.FC = () => {
               platform, empowers users to create highly customized resumes for
               every opportunity.
             </p>
-            <p className="text-xl leading-[1.5] text-fg-light">
-              We’ll store all your projects and job experiences in one place, so
-              you can select which ones make you the ideal candidate for the
+            <p id="benefits" className="text-xl leading-[1.5] text-fg-light">
+              We will store all your projects and job experiences in one place,
+              so you can select which ones make you the ideal candidate for the
               job. Resume Factory will build a customized resume using one of
               our many templates, so that you can properly showcase your skills
               and experiences—maximizing your chances of securing interviews and
@@ -283,7 +286,9 @@ const Features: React.FC = () => {
             <p className="text-2xl">
               Write once. Edit easily. Reuse endlessly.
             </p>
-            <p className="text-xl text-fg-light">We'll take care of the rest</p>
+            <p id="faq" className="text-xl text-fg-light">
+              We'll take care of the rest
+            </p>
           </div>
         </div>
       </section>
@@ -304,22 +309,22 @@ const FAQ: React.FC = () => {
         <Accordion.Root type="single" collapsible>
           <FAQItem
             question="Can I create multiple resumes for different career paths?"
-            answer="Good answer thumbs up!"
+            answer="Yes you can! When listing qualifications you can pick and choose which will be used in the final product. If you don't think it will be necessary for a certain job type, you can store it for later use."
             value="item-1"
           />
           <FAQItem
-            question="Can I create multiple resumes for different career paths?"
-            answer="Good answer thumbs up!"
+            question="Does it cost money?"
+            answer="Not at all! This is a project for personal use and requires nothing other than your input."
             value="item-2"
           />
           <FAQItem
-            question="Can I create multiple resumes for different career paths?"
-            answer="Good answer thumbs up!"
+            question="How many resume options are there?"
+            answer="I plan to have 3 available templates. One for general use and two for computer science related fields."
             value="item-3"
           />
           <FAQItem
-            question="Can I create multiple resumes for different career paths?"
-            answer="Good answer thumbs up!"
+            question="This colors are a little too bright at night. Can I change them?"
+            answer="Select the moon right by the sign up button to enable dark mode."
             value="item-4"
           />
         </Accordion.Root>
@@ -350,10 +355,10 @@ const Footer: React.FC = () => {
             <FooterColumn
               mainLink={{ label: "Home", url: "/" }}
               subLinks={[
-                { label: "About", url: "/" },
-                { label: "Benefits", url: "/" },
-                { label: "Features", url: "/" },
-                { label: "FAQs", url: "/" },
+                { label: "About", url: "#about" },
+                { label: "Benefits", url: "#benefits" },
+                { label: "Features", url: "#features" },
+                { label: "FAQs", url: "#faq" },
               ]}
             ></FooterColumn>
             <FooterColumn
