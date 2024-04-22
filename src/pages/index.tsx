@@ -22,6 +22,7 @@ import { Button } from "~/components/Button";
 import { Container } from "~/components/Container";
 import { FAQItem } from "~/components/FAQItem";
 import { FooterColumn } from "~/components/FooterColumn";
+import { ZekeBar } from "~/components/Bars";
 
 const Home: NextPage = () => {
   return (
@@ -112,20 +113,16 @@ const Hero: React.FC = () => {
 };
 
 const ResumeCount: React.FC<{ count: number }> = ({ count }) => {
-  const bar = <div className="h-[3px] w-full rounded-full bg-fg-light/25 " />;
-
   return (
     <Container>
-      <section
-        id="about"
-        className="mb-[72px] flex flex-row items-center justify-between gap-x-14"
-      >
-        {bar}
+      <section className=" flex flex-row items-center justify-between gap-x-14">
+        <ZekeBar className="bg-fg-light/25" />
         <p className="min-w-max font-mono text-xl font-medium text-fg-light">
           {count} resumes created so far
         </p>
-        {bar}
+        <ZekeBar className="bg-fg-light/25" />
       </section>
+      <ZekeBar className="mb-28 bg-bg" id="about" />
     </Container>
   );
 };
@@ -142,7 +139,7 @@ const About: React.FC = () => {
             Why Resume Factory?
           </h2>
         </div>
-        <div className="mb-44 flex flex-row items-center justify-center gap-3">
+        <div className="mb-32 flex flex-row items-center justify-center gap-3">
           <div className=" flex min-w-max flex-col items-end gap-3">
             <div className="max-w-sm rounded-lg bg-bg p-6 shadow-card">
               <h3 className="mb-3 font-mono text-2xl font-semibold">
@@ -174,7 +171,7 @@ const About: React.FC = () => {
               platform, empowers users to create highly customized resumes for
               every opportunity.
             </p>
-            <p id="benefits" className="text-xl leading-[1.5] text-fg-light">
+            <p className="text-xl leading-[1.5] text-fg-light">
               We will store all your projects and job experiences in one place,
               so you can select which ones make you the ideal candidate for the
               job. Resume Factory will build a customized resume using one of
@@ -184,6 +181,7 @@ const About: React.FC = () => {
             </p>
           </div>
         </div>
+        <ZekeBar className="mb-28 bg-bg" id="benefits" />
       </section>
     </Container>
   );
@@ -216,6 +214,7 @@ const Benefits: React.FC = () => {
             icon={<LuLayoutList size="90px" className="text-accent" />}
           />
         </div>
+        <ZekeBar className="mb-28 bg-bg" id="features" />
       </section>
     </Container>
   );
@@ -286,11 +285,10 @@ const Features: React.FC = () => {
             <p className="text-2xl">
               Write once. Edit easily. Reuse endlessly.
             </p>
-            <p id="faq" className="text-xl text-fg-light">
-              We'll take care of the rest
-            </p>
+            <p className="text-xl text-fg-light">We'll take care of the rest</p>
           </div>
         </div>
+        <ZekeBar className="mb-28 bg-bg" id="faq" />
       </section>
     </Container>
   );
