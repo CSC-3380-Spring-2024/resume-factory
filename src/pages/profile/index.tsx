@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { type NextPage } from "next";
+import Head from "next/head";
 
+// WILL COMEBACK, NEED TO FIGURE OUT NESTED OBJECT REGISTERS AND ARRAYS, BRUTE FORCE FOR NOW
 const Education = z.object({
   degree: z.string(),
   year: z.number(),
@@ -8,7 +11,7 @@ const Education = z.object({
 });
 
 const Project = z.object({
-  link: z.array(z.string()),
+  link: z.string(),
   title: z.string(),
   description: z.string(),
 });
@@ -19,7 +22,7 @@ const Info = z.object({
   email: z.string(),
   links: z.array(z.string()),
   education: z.array(Education),
-  projects: z.array(Project),
+  project: z.array(Project),
   skills: z.array(z.string()),
 });
 
@@ -32,15 +35,103 @@ export default function Profile() {
     formState: { errors },
   } = useForm<resumeValues>();
   const onSubmit: SubmitHandler<resumeValues> = (data) => console.log(data);
+
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Full Name</label>
-        <input {...register("name")} />
-        <label>Phone Number</label>
-        <input {...register("number")} />
-        <button type="submit">Submit</button>
-      </form>
+      <Head>
+        <title>FactoryFloor</title>
+        <meta name="description" content="Quickly build personalized resumes" />
+      </Head>
+      <h1 className="mb-12 font-mono text-7xl font-bold">
+        Welcome To The Factory
+      </h1>
+      <div className="">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <p className="text-lg font-bold">Basic Information</p>
+          <div className="flex flex-col justify-start">
+            <div>
+              <label className="font-semibold">Full Name</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("name")}
+              />
+            </div>
+            <div>
+              <label className="font-semibold">Phone Number</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("number")}
+              />
+            </div>
+            <div>
+              <label className="font-semibold">Email Address</label>
+              <input
+                type="email"
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("email")}
+              />
+            </div>
+            <div>
+              <label className="font-semibold">Github</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("links")}
+              />
+            </div>
+          </div>
+          <p className="text-lg font-bold">Education</p>
+          <div className="flex flex-col justify-start">
+            <div>
+              <label className="font-semibold">School</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("education.0.school")}
+              />
+            </div>
+            <div>
+              <label className="font-semibold">Degree</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("education.0.degree")}
+              />
+            </div>
+
+            <div>
+              <label className="font-semibold">Year of Graduation</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("education.0.year")}
+              />
+            </div>
+          </div>
+          <p className="text-lg font-bold">Projects</p>
+          <div className="flex flex-col justify-start">
+            <div>
+              <label className="font-semibold">Project Title</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("project.0.title")}
+              />
+            </div>
+            <div>
+              <label className="font-semibold">Project Link</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("project.0.link")}
+              />
+            </div>
+
+            <div>
+              <label className="font-semibold">Project Description</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("project.0.description")}
+              />
+            </div>
+          </div>
+          <button type="submit">Build</button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -80,10 +80,10 @@ const Header: React.FC = () => {
             <LuMoon size="25px" />
           </div>
           <Link
-            href="/"
+            href="/profile"
             className="rounded border-2 border-accent bg-accent px-[40px] py-[10px] text-bg shadow transition-colors hover:bg-bg hover:text-accent"
           >
-            Sign up
+            Build Now
           </Link>
         </nav>
       </div>
