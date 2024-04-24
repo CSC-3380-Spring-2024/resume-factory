@@ -283,7 +283,7 @@ const Features: React.FC = () => {
               Your achievements all in one place
             </p>
             <p className="text-2xl">
-              Write once. Edit easily. Reuse endlessly.
+              Write once. Edit with ease. Reuse endlessly.
             </p>
             <p className="text-xl text-fg-light">We'll take care of the rest</p>
           </div>
@@ -372,7 +372,11 @@ const Footer: React.FC = () => {
               mainLink={{ label: "Home", url: "/" }}
               subLinks={[
                 { label: "API", url: "/" },
-                { label: "GitHub", url: "/" },
+                {
+                  label: "GitHub",
+                  // Need to add href target _blank, -> FooterColumn
+                  url: "https://github.com/CB-BC/resume-factory",
+                },
               ]}
             ></FooterColumn>
           </div>
@@ -383,8 +387,8 @@ const Footer: React.FC = () => {
               Resume Factory
             </p>
             <p className="text-xl leading-7 text-fg-light">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis
-              dolorem ut qui sed id. Dignissimos, quos doloribus?
+              Look at this resume. Isn't it great? Greatest resume I've ever
+              seen I tell you what. Wait what do you mean it's not working yet?
             </p>
           </div>
         </div>
