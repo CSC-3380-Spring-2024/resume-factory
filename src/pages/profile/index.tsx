@@ -25,7 +25,7 @@ const Info = z.object({
 
 type resumeValues = z.infer<typeof Info>;
 
-export default function App() {
+export default function Profile() {
   const {
     register,
     handleSubmit,

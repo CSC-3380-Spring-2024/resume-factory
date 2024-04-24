@@ -105,7 +105,7 @@ const Hero: React.FC = () => {
           impresses employers.
         </p>
         <div className="flex flex-row justify-end">
-          <Button label="Get started now" />
+          <Button url="/profile" label="Get started now" />
         </div>
       </section>
     </Container>
@@ -338,7 +338,7 @@ const CTA: React.FC = () => {
         <p className="font-mono text-3xl font-semibold">
           Land your next job interview <br /> with the perfect resume.
         </p>
-        <Button label="Get started now" />
+        <Button url="/pages/" label="Get started now" />
       </div>
     </div>
   );
