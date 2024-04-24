@@ -16,8 +16,8 @@ export const FooterColumn: React.FC<Props> = ({ mainLink, subLinks }) => {
       <Link className="font-mono font-semibold" href={mainLink.url}>
         {mainLink.label}
       </Link>
-      {subLinks.map((link) => (
-        <Link className="" href={link.url}>
+      {subLinks.map((link, index) => (
+        <Link className="" href={link.url} key={index}>
           {link.label}
         </Link>
       ))}

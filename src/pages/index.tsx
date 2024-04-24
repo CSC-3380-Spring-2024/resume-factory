@@ -22,6 +22,7 @@ import { Button } from "~/components/Button";
 import { Container } from "~/components/Container";
 import { FAQItem } from "~/components/FAQItem";
 import { FooterColumn } from "~/components/FooterColumn";
+import { ZekeBar } from "~/components/Bars";
 
 const Home: NextPage = () => {
   return (
@@ -112,17 +113,16 @@ const Hero: React.FC = () => {
 };
 
 const ResumeCount: React.FC<{ count: number }> = ({ count }) => {
-  const bar = <div className="h-[3px] w-full rounded-full bg-fg-light/25 " />;
-
   return (
     <Container>
-      <section className="mb-[72px] flex flex-row items-center justify-between gap-x-14">
-        {bar}
+      <section className=" flex flex-row items-center justify-between gap-x-14">
+        <ZekeBar className="bg-fg-light/25" />
         <p className="min-w-max font-mono text-xl font-medium text-fg-light">
           {count} resumes created so far
         </p>
-        {bar}
+        <ZekeBar className="bg-fg-light/25" />
       </section>
+      <ZekeBar className="mb-28 bg-bg" id="about" />
     </Container>
   );
 };
@@ -139,7 +139,7 @@ const About: React.FC = () => {
             Why Resume Factory?
           </h2>
         </div>
-        <div className="mb-44 flex flex-row items-center justify-center gap-3">
+        <div className="mb-32 flex flex-row items-center justify-center gap-3">
           <div className=" flex min-w-max flex-col items-end gap-3">
             <div className="max-w-sm rounded-lg bg-bg p-6 shadow-card">
               <h3 className="mb-3 font-mono text-2xl font-semibold">
@@ -172,8 +172,8 @@ const About: React.FC = () => {
               every opportunity.
             </p>
             <p className="text-xl leading-[1.5] text-fg-light">
-              We’ll store all your projects and job experiences in one place, so
-              you can select which ones make you the ideal candidate for the
+              We will store all your projects and job experiences in one place,
+              so you can select which ones make you the ideal candidate for the
               job. Resume Factory will build a customized resume using one of
               our many templates, so that you can properly showcase your skills
               and experiences—maximizing your chances of securing interviews and
@@ -181,6 +181,7 @@ const About: React.FC = () => {
             </p>
           </div>
         </div>
+        <ZekeBar className="mb-28 bg-bg" id="benefits" />
       </section>
     </Container>
   );
@@ -213,6 +214,7 @@ const Benefits: React.FC = () => {
             icon={<LuLayoutList size="90px" className="text-accent" />}
           />
         </div>
+        <ZekeBar className="mb-28 bg-bg" id="features" />
       </section>
     </Container>
   );
@@ -286,6 +288,7 @@ const Features: React.FC = () => {
             <p className="text-xl text-fg-light">We'll take care of the rest</p>
           </div>
         </div>
+        <ZekeBar className="mb-28 bg-bg" id="faq" />
       </section>
     </Container>
   );
@@ -304,22 +307,22 @@ const FAQ: React.FC = () => {
         <Accordion.Root type="single" collapsible>
           <FAQItem
             question="Can I create multiple resumes for different career paths?"
-            answer="Good answer thumbs up!"
+            answer="Yes you can! When listing qualifications you can pick and choose which will be used in the final product. If you don't think it will be necessary for a certain job type, you can store it for later use."
             value="item-1"
           />
           <FAQItem
-            question="Can I create multiple resumes for different career paths?"
-            answer="Good answer thumbs up!"
+            question="Does it cost money?"
+            answer="Not at all! This is a project for personal use and requires nothing other than your input."
             value="item-2"
           />
           <FAQItem
-            question="Can I create multiple resumes for different career paths?"
-            answer="Good answer thumbs up!"
+            question="How many resume options are there?"
+            answer="I plan to have 3 available templates. One for general use and two for computer science related fields."
             value="item-3"
           />
           <FAQItem
-            question="Can I create multiple resumes for different career paths?"
-            answer="Good answer thumbs up!"
+            question="This colors are a little too bright at night. Can I change them?"
+            answer="Select the moon right by the sign up button to enable dark mode."
             value="item-4"
           />
         </Accordion.Root>
@@ -350,10 +353,10 @@ const Footer: React.FC = () => {
             <FooterColumn
               mainLink={{ label: "Home", url: "/" }}
               subLinks={[
-                { label: "About", url: "/" },
-                { label: "Benefits", url: "/" },
-                { label: "Features", url: "/" },
-                { label: "FAQs", url: "/" },
+                { label: "About", url: "#about" },
+                { label: "Benefits", url: "#benefits" },
+                { label: "Features", url: "#features" },
+                { label: "FAQs", url: "#faq" },
               ]}
             ></FooterColumn>
             <FooterColumn
