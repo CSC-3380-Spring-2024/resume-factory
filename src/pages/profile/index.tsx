@@ -2,9 +2,24 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { type NextPage } from "next";
 import Head from "next/head";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import dynamic from "next/dynamic";
 import PDFFile from "~/components/PDFFile";
-
+import { useState } from "react";
+// import { usePDF } from "@react-pdf/renderer";
+const PDFDownloadLink = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
+  {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  }
+);
+// const usePDF = dynamic(
+//   () => import("@react-pdf/renderer").then((mod) => mod.usePDF),
+//   {
+//     ssr: false,
+//     loading: () => <p>Loading...</p>,
+//   }
+// );
 // WILL COMEBACK, NEED TO FIGURE OUT NESTED OBJECT REGISTERS AND ARRAYS, BRUTE FORCE FOR NOW
 const Education = z.object({
   degree: z.string(),
@@ -29,18 +44,24 @@ const Info = z.object({
   FileName: z.string(),
 });
 
-type resumeValues = z.infer<typeof Info>;
+export type ResumeValues = z.infer<typeof Info>;
 
 export default function Profile() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<resumeValues>();
-  const onSubmit: SubmitHandler<resumeValues> = (data) => console.log(data);
+  } = useForm<ResumeValues>();
+  const [formData, setFormData] = useState<ResumeValues>();
+  // const [instance, update] = usePDF({ document: <PDFFile /> });
+
+  const onSubmit: SubmitHandler<ResumeValues> = (data) => {
+    setFormData(data);
+    console.log(data);
+  };
 
   return (
-    <div>
+    <div className="container">
       <Head>
         <title>FactoryFloor</title>
         <meta name="description" content="Quickly build personalized resumes" />
@@ -132,20 +153,28 @@ export default function Profile() {
               />
             </div>
           </div>
-          <button>Build</button>
+          <button type="submit">Build</button>
+          {/* {instance.url && (
+            <a href={instance.url} download="test.pdf">
+              Download
+            </a> */}
+          {/* )} */}
+          <div>
+            <PDFDownloadLink
+              document={<PDFFile {...formData} />}
+              fileName="temp"
+            >
+              {({ loading }) =>
+                loading ? (
+                  <button>Loading Document...</button>
+                ) : (
+                  <button type="button">Download</button>
+                )
+              }
+            </PDFDownloadLink>
+          </div>
         </form>
         {/* DownloadLink trial for react-pdf */}
-        <div>
-          <PDFDownloadLink document={<PDFFile />} fileName="temp">
-            {({ loading }) =>
-              loading ? (
-                <button>Loading Document...</button>
-              ) : (
-                <button>Download</button>
-              )
-            }
-          </PDFDownloadLink>
-        </div>
       </div>
     </div>
   );
