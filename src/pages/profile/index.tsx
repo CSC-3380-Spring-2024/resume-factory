@@ -2,6 +2,8 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { type NextPage } from "next";
 import Head from "next/head";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PDFFile from "~/components/PDFFile";
 
 // WILL COMEBACK, NEED TO FIGURE OUT NESTED OBJECT REGISTERS AND ARRAYS, BRUTE FORCE FOR NOW
 const Education = z.object({
@@ -24,6 +26,7 @@ const Info = z.object({
   education: z.array(Education),
   project: z.array(Project),
   skills: z.array(z.string()),
+  FileName: z.string(),
 });
 
 type resumeValues = z.infer<typeof Info>;
@@ -129,8 +132,20 @@ export default function Profile() {
               />
             </div>
           </div>
-          <button type="submit">Build</button>
+          <button>Build</button>
         </form>
+        {/* DownloadLink trial for react-pdf */}
+        <div>
+          <PDFDownloadLink document={<PDFFile />} fileName="temp">
+            {({ loading }) =>
+              loading ? (
+                <button>Loading Document...</button>
+              ) : (
+                <button>Download</button>
+              )
+            }
+          </PDFDownloadLink>
+        </div>
       </div>
     </div>
   );
