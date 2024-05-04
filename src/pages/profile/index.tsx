@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, UseFormRegister } from "react-hook-form";
 import { type NextPage } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
@@ -41,10 +41,27 @@ const Info = z.object({
   education: z.array(Education),
   project: z.array(Project),
   skills: z.array(z.string()),
-  FileName: z.string(),
+  fileName: z.string(),
 });
 
 export type ResumeValues = z.infer<typeof Info>;
+
+// const BasicInput: React.FC<{ field: keyof ResumeValues }> = ({ field }) => {
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm<ResumeValues>();
+//   return (
+//     <div>
+//       <label className="font-semibold">Full Name</label>
+//       <input
+//         className="w-full rounded border border-gray-400 px-3 py-2"
+//         {...register(field)}
+//       />
+//     </div>
+//   );
+// };
 
 export default function Profile() {
   const {
@@ -60,6 +77,22 @@ export default function Profile() {
     console.log(data);
   };
 
+  const BasicInput: React.FC<{
+    title: string;
+    field: keyof ResumeValues;
+    register: UseFormRegister<ResumeValues>;
+  }> = ({ title, field, register }) => {
+    return (
+      <div>
+        <label className="font-semibold">{title}</label>
+        <input
+          className="w-full rounded border border-gray-400 px-3 py-2"
+          {...register(field)}
+        />
+      </div>
+    );
+  };
+
   return (
     <div className="container">
       <Head>
@@ -73,13 +106,7 @@ export default function Profile() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <p className="text-lg font-bold">Basic Information</p>
           <div className="flex flex-col justify-start">
-            <div>
-              <label className="font-semibold">Full Name</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("name")}
-              />
-            </div>
+            <BasicInput title="Full Name" field="name" register={register} />
             <div>
               <label className="font-semibold">Phone Number</label>
               <input
@@ -103,7 +130,7 @@ export default function Profile() {
               />
             </div>
           </div>
-          <p className="text-lg font-bold">Education</p>
+          <p className="text-lg font-bold">Education 1</p>
           <div className="flex flex-col justify-start">
             <div>
               <label className="font-semibold">School</label>
@@ -125,6 +152,32 @@ export default function Profile() {
               <input
                 className="w-full rounded border border-gray-400 px-3 py-2"
                 {...register("education.0.year")}
+              />
+            </div>
+          </div>
+
+          <p className="text-lg font-bold">Education 2</p>
+          <div className="flex flex-col justify-start">
+            <div>
+              <label className="font-semibold">School</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("education.1.school")}
+              />
+            </div>
+            <div>
+              <label className="font-semibold">Degree</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("education.1.degree")}
+              />
+            </div>
+
+            <div>
+              <label className="font-semibold">Year of Graduation</label>
+              <input
+                className="w-full rounded border border-gray-400 px-3 py-2"
+                {...register("education.1.year")}
               />
             </div>
           </div>
