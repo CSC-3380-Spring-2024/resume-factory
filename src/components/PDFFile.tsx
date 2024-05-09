@@ -6,6 +6,7 @@ import {
   Document,
   StyleSheet,
   View,
+  Link,
 } from "@react-pdf/renderer";
 import { ResumeValues } from "~/pages/profile/index";
 
@@ -36,7 +37,16 @@ const PDFFile: React.FC<Partial<ResumeValues>> = (props) => {
         <Text>{props.name}</Text>
         <Text>{props.number}</Text>
         <Text>{props.email}</Text>
-        <Text>{props.links}</Text>
+        {/* Doesn't automatically go to link in new tab, couldn't find functionality in react-pdf */}
+        {/* Must manually right click "open link in new tab" */}
+        <View>
+          <Text>Links</Text>
+          {props.links?.map((item, index) => (
+            <View key={index}>
+              <Link src={`https://www.${item}`}>{item}</Link>
+            </View>
+          ))}
+        </View>
         <Text>{props.skills}</Text>
         <View>
           <Text>Education</Text>

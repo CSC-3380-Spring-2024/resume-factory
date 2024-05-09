@@ -79,7 +79,7 @@ export default function Profile() {
 
   const BasicInput: React.FC<{
     title: string;
-    field: keyof ResumeValues;
+    field: string;
     register: UseFormRegister<ResumeValues>;
   }> = ({ title, field, register }) => {
     return (
@@ -87,7 +87,7 @@ export default function Profile() {
         <label className="font-semibold">{title}</label>
         <input
           className="w-full rounded border border-gray-400 px-3 py-2"
-          {...register(field)}
+          {...register(field as keyof ResumeValues)}
         />
       </div>
     );
@@ -107,115 +107,83 @@ export default function Profile() {
           <p className="text-lg font-bold">Basic Information</p>
           <div className="flex flex-col justify-start">
             <BasicInput title="Full Name" field="name" register={register} />
-            <div>
-              <label className="font-semibold">Phone Number</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("number")}
-              />
-            </div>
-            <div>
-              <label className="font-semibold">Email Address</label>
-              <input
-                type="email"
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("email")}
-              />
-            </div>
-            <div>
-              <label className="font-semibold">Github</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("links")}
-              />
-            </div>
+            <BasicInput
+              title="Phone Number"
+              field="number"
+              register={register}
+            />
+            <BasicInput
+              title="Email Address"
+              field="email"
+              register={register}
+            />
+            <BasicInput title="GitHub" field="links.0" register={register} />
+            <BasicInput title="LinkedIn" field="links.1" register={register} />
           </div>
           <p className="text-lg font-bold">Education 1</p>
           <div className="flex flex-col justify-start">
-            <div>
-              <label className="font-semibold">School</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("education.0.school")}
-              />
-            </div>
-            <div>
-              <label className="font-semibold">Degree</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("education.0.degree")}
-              />
-            </div>
-
-            <div>
-              <label className="font-semibold">Year of Graduation</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("education.0.year")}
-              />
-            </div>
+            <BasicInput
+              title="School"
+              field="education.0.school"
+              register={register}
+            />
+            <BasicInput
+              title="Degree"
+              field="education.0.degree"
+              register={register}
+            />
+            <BasicInput
+              title="Year of Graduation"
+              field="education.0.year"
+              register={register}
+            />
           </div>
-
           <p className="text-lg font-bold">Education 2</p>
           <div className="flex flex-col justify-start">
-            <div>
-              <label className="font-semibold">School</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("education.1.school")}
-              />
-            </div>
-            <div>
-              <label className="font-semibold">Degree</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("education.1.degree")}
-              />
-            </div>
-
-            <div>
-              <label className="font-semibold">Year of Graduation</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("education.1.year")}
-              />
-            </div>
+            <BasicInput
+              title="School"
+              field="education.1.school"
+              register={register}
+            />
+            <BasicInput
+              title="Degree"
+              field="education.1.degree"
+              register={register}
+            />
+            <BasicInput
+              title="Year of Graduation"
+              field="education.1.year"
+              register={register}
+            />
           </div>
           <p className="text-lg font-bold">Projects</p>
           <div className="flex flex-col justify-start">
-            <div>
-              <label className="font-semibold">Project Title</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("project.0.title")}
-              />
-            </div>
-            <div>
-              <label className="font-semibold">Project Link</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("project.0.link")}
-              />
-            </div>
-
-            <div>
-              <label className="font-semibold">Project Description</label>
-              <input
-                className="w-full rounded border border-gray-400 px-3 py-2"
-                {...register("project.0.description")}
-              />
-            </div>
+            <BasicInput
+              title="Project Title"
+              field="project.0.title"
+              register={register}
+            />
+            <BasicInput
+              title="Project Link"
+              field="project.0.link"
+              register={register}
+            />
+            <BasicInput
+              title="Project Desrtiption"
+              field="project.0.description"
+              register={register}
+            />
           </div>
+          <BasicInput
+            title="Preferred File Name"
+            field="fileName"
+            register={register}
+          ></BasicInput>
           <button type="submit">Build</button>
-          {/* {instance.url && (
-            <a href={instance.url} download="test.pdf">
-              Download
-            </a> */}
-          {/* )} */}
           <div>
             <PDFDownloadLink
               document={<PDFFile {...formData} />}
-              fileName="temp"
+              fileName={formData?.fileName || "temp"}
             >
               {({ loading }) =>
                 loading ? (
@@ -227,7 +195,6 @@ export default function Profile() {
             </PDFDownloadLink>
           </div>
         </form>
-        {/* DownloadLink trial for react-pdf */}
       </div>
     </div>
   );
