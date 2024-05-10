@@ -95,7 +95,7 @@ export default function Profile() {
   // DESIGN STILL NEEDS TO BE DONE
   // FOCUSING ON FUNCTIONALITY
   return (
-    <div className="container">
+    <div className="mx-auto max-w-2xl">
       <Head>
         <title>FactoryFloor</title>
         <meta name="description" content="Quickly build personalized resumes" />

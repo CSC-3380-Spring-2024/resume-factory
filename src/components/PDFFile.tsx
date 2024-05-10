@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   heading: {
-    fontSize: 16,
+    fontSize: 40,
     fontWeight: "bold",
     marginBottom: 5,
   },
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 const PDFFile: React.FC<Partial<ResumeValues>> = (props) => {
   return (
     <Document>
-      <Page style={styles.Body}>
+      <Page>
         <Text>{props.name}</Text>
         <Text>{props.number}</Text>
         <Text>{props.email}</Text>
@@ -48,7 +48,7 @@ const PDFFile: React.FC<Partial<ResumeValues>> = (props) => {
         </View>
         <Text>{props.skills}</Text>
         <View>
-          <Text>Education</Text>
+          <Text style={styles.heading}>Education</Text>
           {props.education?.map((item, index) => (
             <View key={index}>
               <Text>Degree: {item.degree}</Text>
@@ -58,7 +58,7 @@ const PDFFile: React.FC<Partial<ResumeValues>> = (props) => {
           ))}
         </View>
         <View>
-          <Text>Projects</Text>
+          <Text style={styles.heading}>Projects</Text>
           {props.project?.map((item, index) => (
             <View key={index}>
               <Link src={item.link}>{item.title}</Link>
