@@ -285,7 +285,9 @@ const Features: React.FC = () => {
             <p className="text-2xl">
               Write once. Edit with ease. Reuse endlessly.
             </p>
-            <p className="text-xl text-fg-light">We'll take care of the rest</p>
+            <p className="text-xl text-fg-light">
+              We will take care of the rest
+            </p>
           </div>
         </div>
         <ZekeBar className="mb-28 bg-bg" id="faq" />
