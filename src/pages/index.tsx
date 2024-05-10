@@ -372,7 +372,10 @@ const Footer: React.FC = () => {
               mainLink={{ label: "Home", url: "/" }}
               subLinks={[
                 { label: "API", url: "/" },
-                { label: "GitHub", url: "/" },
+                {
+                  label: "GitHub",
+                  url: "https://github.com/CB-BC/resume-factory",
+                },
               ]}
             ></FooterColumn>
           </div>
@@ -383,15 +386,15 @@ const Footer: React.FC = () => {
               Resume Factory
             </p>
             <p className="text-xl leading-7 text-fg-light">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis
-              dolorem ut qui sed id. Dignissimos, quos doloribus?
+              Get started off with a great resume. No need for any design
+              knowledge, we build it for you!
             </p>
           </div>
         </div>
       </Container>
       <div className="bg-bg-darkest py-7">
         <p className="text-center font-mono font-semibold text-bg">
-          © 2023 Resume Factory. All rights reserved.
+          © 2024 Resume Factory. All rights reserved.
         </p>
       </div>
     </footer>

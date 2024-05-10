@@ -3,7 +3,6 @@ import {
   useForm,
   SubmitHandler,
   UseFormRegister,
-  FieldValues,
   useFieldArray,
   useFormContext,
   FormProvider,
@@ -13,7 +12,6 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import PDFFile from "~/components/PDFFile";
 import React, { useState, createContext, useContext } from "react";
-// import { usePDF } from "@react-pdf/renderer";
 
 // Register function
 const RegisterContext = createContext<
