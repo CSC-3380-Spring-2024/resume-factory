@@ -1,5 +1,11 @@
 import { z } from "zod";
-import { useForm, SubmitHandler, UseFormRegister } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  UseFormRegister,
+  FieldValues,
+  useFieldArray,
+} from "react-hook-form";
 import { type NextPage } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
@@ -44,7 +50,7 @@ const PDFDownloadLink = dynamic(
 // all zod object are meant for validation | NOT YET IMPLEMENTED PROPERLY
 const Education = z.object({
   degree: z.string(),
-  year: z.number(),
+  year: z.string(),
   school: z.string(),
 });
 
@@ -183,21 +189,65 @@ const BasicInfo: React.FC = () => {
 };
 
 const EducationInfo: React.FC = () => {
+  const { register, control, handleSubmit } = useForm<ResumeValues>();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "education",
+  });
+
   return (
     <>
-      <p className="text-lg font-bold">Education 1</p>
-      <EducationInput eduNum="0" />
+      <p className="text-lg font-bold">Education</p>
+      {fields.map((field, index) => (
+        <div key={field.id}>
+          <p className="text-lg font-bold">Education {index + 1}</p>
+          {/* toString saved my life */}
+          <EducationInput eduNum={index.toString()} />
+          <button type="button" onClick={() => remove(index)}>
+            Remove Education
+          </button>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => append({ degree: "", year: "", school: "" })}
+      >
+        Add Education
+      </button>
+      {/* <EducationInput eduNum="0" />
       <p className="text-lg font-bold">Education 2</p>
-      <EducationInput eduNum="1" />
+      <EducationInput eduNum="1" /> */}
     </>
   );
 };
 
 const ProjectInfo: React.FC = () => {
+  const { control } = useForm<ResumeValues>();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "project",
+  });
   return (
     <>
+      {/* <p className="text-lg font-bold">Projects</p>
+      <ProjectInput projNum="0" /> */}
       <p className="text-lg font-bold">Projects</p>
-      <ProjectInput projNum="0" />
+      {fields.map((field, index) => (
+        <div key={field.id}>
+          <p className="text-lg font-bold">Project {index + 1}</p>
+          {/* toString saved my life */}
+          <ProjectInput projNum={index.toString()} />
+          <button type="button" onClick={() => remove(index)}>
+            Remove Project
+          </button>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => append({ title: "", link: "", description: "" })}
+      >
+        Add Project
+      </button>
     </>
   );
 };
