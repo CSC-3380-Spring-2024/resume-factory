@@ -65,10 +65,10 @@ const Header: React.FC = () => {
           <Link className="transition-colors hover:text-accent" href="#faq">
             FAQ
           </Link>
-          <Link className="transition-colors hover:text-accent" href="/blog">
+          <Link className="transition-colors hover:text-accent" href="/">
             Blog
           </Link>
-          <Link className="transition-colors hover:text-accent" href="/api">
+          <Link className="transition-colors hover:text-accent" href="/">
             API
           </Link>
           <div className="flex flex-row gap-x-[20px]">
@@ -284,7 +284,7 @@ const Features: React.FC = () => {
               Your achievements all in one place
             </p>
             <p className="text-2xl">
-              Write once. Edit easily. Reuse endlessly.
+              Write once. Edit with ease. Reuse endlessly.
             </p>
             <p className="text-xl text-fg-light">We'll take care of the rest</p>
           </div>
@@ -375,6 +375,7 @@ const Footer: React.FC = () => {
                 { label: "API", url: "/" },
                 {
                   label: "GitHub",
+                  // Need to add href target _blank, -> FooterColumn
                   url: "https://github.com/CB-BC/resume-factory",
                 },
               ]}
