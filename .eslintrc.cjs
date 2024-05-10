@@ -3,6 +3,7 @@ const path = require("path");
 
 /** @type {import("eslint").Linter.Config} */
 const config = {
+  
   overrides: [
     {
       extends: [
@@ -35,6 +36,7 @@ const config = {
         "checksVoidReturn": false
       }],
   },
+  
 };
 
 module.exports = config;
