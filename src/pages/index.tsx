@@ -23,6 +23,7 @@ import { Container } from "~/components/Container";
 import { FAQItem } from "~/components/FAQItem";
 import { FooterColumn } from "~/components/FooterColumn";
 import { ZekeBar } from "~/components/Bars";
+import { resCount } from "~/pages/profile/index";
 
 const Home: NextPage = () => {
   return (
@@ -35,7 +36,7 @@ const Home: NextPage = () => {
       <Header />
       <main>
         <Hero />
-        <ResumeCount count={0} />
+        <ResumeCount count={resCount} />
         <About />
         <Benefits />
         <Features />
@@ -80,10 +81,10 @@ const Header: React.FC = () => {
             <LuMoon size="25px" />
           </div>
           <Link
-            href="/"
+            href="/profile"
             className="rounded border-2 border-accent bg-accent px-[40px] py-[10px] text-bg shadow transition-colors hover:bg-bg hover:text-accent"
           >
-            Sign up
+            Build Now
           </Link>
         </nav>
       </div>
@@ -387,15 +388,15 @@ const Footer: React.FC = () => {
               Resume Factory
             </p>
             <p className="text-xl leading-7 text-fg-light">
-              Look at this resume. Isn't it great? Greatest resume I've ever
-              seen I tell you what. Wait what do you mean it's not working yet?
+              Get started off with a great resume. No need for any design
+              knowledge, we build it for you!
             </p>
           </div>
         </div>
       </Container>
       <div className="bg-bg-darkest py-7">
         <p className="text-center font-mono font-semibold text-bg">
-          © 2023 Resume Factory. All rights reserved.
+          © 2024 Resume Factory. All rights reserved.
         </p>
       </div>
     </footer>
