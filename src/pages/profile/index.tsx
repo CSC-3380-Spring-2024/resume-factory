@@ -40,14 +40,8 @@ const PDFDownloadLink = dynamic(
     loading: () => <p>Loading...</p>,
   }
 );
-// const usePDF = dynamic(
-//   () => import("@react-pdf/renderer").then((mod) => mod.usePDF),
-//   {
-//     ssr: false,
-//     loading: () => <p>Loading...</p>,
-//   }
-// );
-// WILL COMEBACK, NEED TO FIGURE OUT NESTED OBJECT REGISTERS AND ARRAYS, BRUTE FORCE FOR NOW
+
+// all zod object are meant for validation | NOT YET IMPLEMENTED PROPERLY
 const Education = z.object({
   degree: z.string(),
   year: z.number(),
@@ -80,13 +74,15 @@ export default function Profile() {
     formState: { errors },
   } = useForm<ResumeValues>();
   const [formData, setFormData] = useState<ResumeValues>();
-  // const [instance, update] = usePDF({ document: <PDFFile /> });
 
+  // Handles button submition to push to console for testing and to PDFFile
   const onSubmit: SubmitHandler<ResumeValues> = (data) => {
     setFormData(data);
     console.log(data);
   };
 
+  // DESIGN STILL NEEDS TO BE DONE
+  // FOCUSING ON FUNCTIONALITY
   return (
     <div className="container">
       <Head>
