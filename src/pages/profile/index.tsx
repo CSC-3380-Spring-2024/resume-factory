@@ -12,7 +12,6 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import PDFFile from "~/components/PDFFile";
 import React, { useState, createContext, useContext } from "react";
-
 // Register function
 const RegisterContext = createContext<
   UseFormRegister<ResumeValues> | undefined
@@ -63,6 +62,8 @@ const Info = z.object({
 
 export type ResumeValues = z.infer<typeof Info>;
 
+export const resCount = 0;
+
 export const RegisterProvider: React.FC<{
   register: UseFormRegister<ResumeValues>;
   children: React.ReactNode;
@@ -83,11 +84,16 @@ export default function Profile() {
     control,
   } = methods;
   const [formData, setFormData] = useState<ResumeValues>();
+  const [count, setCount] = useState(resCount);
 
   // Handles button submition to push to console for testing and to PDFFile
   const onSubmit: SubmitHandler<ResumeValues> = (data) => {
     setFormData(data);
     console.log(data);
+  };
+
+  const incrementResCount = () => {
+    setCount(count + 1);
   };
 
   // DESIGN STILL NEEDS TO BE DONE
@@ -120,7 +126,9 @@ export default function Profile() {
                     loading ? (
                       <button>Loading Document...</button>
                     ) : (
-                      <button type="button">Download</button>
+                      <button onClick={incrementResCount} type="button">
+                        Download
+                      </button>
                     )
                   }
                 </PDFDownloadLink>

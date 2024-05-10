@@ -23,6 +23,7 @@ import { Container } from "~/components/Container";
 import { FAQItem } from "~/components/FAQItem";
 import { FooterColumn } from "~/components/FooterColumn";
 import { ZekeBar } from "~/components/Bars";
+import { resCount } from "~/pages/profile/index";
 
 const Home: NextPage = () => {
   return (
@@ -35,7 +36,7 @@ const Home: NextPage = () => {
       <Header />
       <main>
         <Hero />
-        <ResumeCount count={0} />
+        <ResumeCount count={resCount} />
         <About />
         <Benefits />
         <Features />
