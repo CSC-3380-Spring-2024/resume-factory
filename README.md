@@ -1,11 +1,18 @@
 # RESUME FACTORY
 
-## LAST EPISODE
+## NECESSARY DOWNLOADS
 
-- DARK THEME
-- MADE MAIN, CONTAINER
+- [NODE.JS](https://nodejs.org/en/download)
+- **THAT'S IT!!**
 
-## todo
+## RUNNING THE PROGRAM
 
-- STYLE HERO, THINKMILL
-- MAKE HEADER, POPUP | FLURRY
+1. Install node.js ^^
+2. Git clone the project to your own machine
+3. cd to directory of clone
+4. `npm i` in directory to install dependencies
+5. `npm run build` then `npm run start` to run a local build
+
+## ALL DONE
+
+Now you can modify or add whatever you'd like!
