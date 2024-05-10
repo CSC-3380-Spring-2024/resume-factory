@@ -4,7 +4,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import PDFFile from "~/components/PDFFile";
-import { useState } from "react";
+import React, { useState } from "react";
 // import { usePDF } from "@react-pdf/renderer";
 const PDFDownloadLink = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
@@ -94,6 +94,7 @@ export default function Profile() {
       </h1>
       <div className="">
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Testing component method for reduce wear on main() */}
           <p className="text-lg font-bold">Basic Information</p>
           <div className="flex flex-col justify-start">
             <BasicInput title="Full Name" field="name" register={register} />
@@ -111,61 +112,10 @@ export default function Profile() {
             <BasicInput title="LinkedIn" field="links.1" register={register} />
           </div>
           <p className="text-lg font-bold">Education 1</p>
-          {/* <div className="flex flex-col justify-start">
-            <BasicInput
-              title="School"
-              field="education.0.school"
-              register={register}
-            />
-            <BasicInput
-              title="Degree"
-              field="education.0.degree"
-              register={register}
-            />
-            <BasicInput
-              title="Year of Graduation"
-              field="education.0.year"
-              register={register}
-            />
-          </div> */}
           <EducationInput eduNum="0" register={register} />
           <p className="text-lg font-bold">Education 2</p>
-          {/* <div className="flex flex-col justify-start">
-            <BasicInput
-              title="School"
-              field="education.1.school"
-              register={register}
-            />
-            <BasicInput
-              title="Degree"
-              field="education.1.degree"
-              register={register}
-            />
-            <BasicInput
-              title="Year of Graduation"
-              field="education.1.year"
-              register={register}
-            />
-          </div> */}
           <EducationInput eduNum="1" register={register} />
           <p className="text-lg font-bold">Projects</p>
-          {/* <div className="flex flex-col justify-start">
-            <BasicInput
-              title="Project Title"
-              field="project.0.title"
-              register={register}
-            />
-            <BasicInput
-              title="Project Link"
-              field="project.0.link"
-              register={register}
-            />
-            <BasicInput
-              title="Project Desrtiption"
-              field="project.0.description"
-              register={register}
-            />
-          </div> */}
           <ProjectInput projNum="0" register={register} />
 
           {/* SKILLS WILL GO HERE -> */}
@@ -263,3 +213,21 @@ const ProjectInput: React.FC<{
     </div>
   );
 };
+
+// const BasicInfo: React.FC = () => {
+//   return(
+//     <><p className="text-lg font-bold">Basic Information</p><div className="flex flex-col justify-start">
+//       <BasicInput title="Full Name" field="name" register={register} />
+//       <BasicInput
+//         title="Phone Number"
+//         field="number"
+//         register={register} />
+//       <BasicInput
+//         title="Email Address"
+//         field="email"
+//         register={register} />
+//       <BasicInput title="GitHub" field="links.0" register={register} />
+//       <BasicInput title="LinkedIn" field="links.1" register={register} />
+//     </div></>
+//   );
+// };
