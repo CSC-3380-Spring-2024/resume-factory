@@ -1,5 +1,13 @@
 import { z } from "zod";
-import { useForm, SubmitHandler, UseFormRegister } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  UseFormRegister,
+  FieldValues,
+  useFieldArray,
+  useFormContext,
+  FormProvider,
+} from "react-hook-form";
 import { type NextPage } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
@@ -22,16 +30,6 @@ export const useRegister = () => {
 };
 
 // Provider component to wrap around the top-level component
-export const RegisterProvider: React.FC<{
-  register: UseFormRegister<ResumeValues>;
-  children: React.ReactNode;
-}> = ({ register, children }) => {
-  return (
-    <RegisterContext.Provider value={register}>
-      {children}
-    </RegisterContext.Provider>
-  );
-};
 
 const PDFDownloadLink = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
@@ -44,7 +42,7 @@ const PDFDownloadLink = dynamic(
 // all zod object are meant for validation | NOT YET IMPLEMENTED PROPERLY
 const Education = z.object({
   degree: z.string(),
-  year: z.number(),
+  year: z.string(),
   school: z.string(),
 });
 
@@ -67,12 +65,25 @@ const Info = z.object({
 
 export type ResumeValues = z.infer<typeof Info>;
 
+export const RegisterProvider: React.FC<{
+  register: UseFormRegister<ResumeValues>;
+  children: React.ReactNode;
+}> = ({ register, children }) => {
+  return (
+    <RegisterContext.Provider value={register}>
+      {children}
+    </RegisterContext.Provider>
+  );
+};
+
 export default function Profile() {
+  const methods = useForm<ResumeValues>();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ResumeValues>();
+    control,
+  } = methods;
   const [formData, setFormData] = useState<ResumeValues>();
 
   // Handles button submition to push to console for testing and to PDFFile
@@ -84,7 +95,7 @@ export default function Profile() {
   // DESIGN STILL NEEDS TO BE DONE
   // FOCUSING ON FUNCTIONALITY
   return (
-    <div className="container">
+    <div className="mx-auto max-w-2xl">
       <Head>
         <title>FactoryFloor</title>
         <meta name="description" content="Quickly build personalized resumes" />
@@ -93,33 +104,32 @@ export default function Profile() {
         Welcome To The Factory
       </h1>
       <div className="">
-        <RegisterProvider register={register}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <BasicInfo />
-            <EducationInfo />
-            <ProjectInfo />
-            {/* SKILLS WILL GO HERE -> */}
-            <BasicInput
-              title="Preferred File Name"
-              field="fileName"
-            ></BasicInput>
-            <button type="submit">Build</button>
-            <div>
-              <PDFDownloadLink
-                document={<PDFFile {...formData} />}
-                fileName={formData?.fileName || "temp"}
-              >
-                {({ loading }) =>
-                  loading ? (
-                    <button>Loading Document...</button>
-                  ) : (
-                    <button type="button">Download</button>
-                  )
-                }
-              </PDFDownloadLink>
-            </div>
-          </form>
-        </RegisterProvider>
+        <FormProvider {...methods}>
+          <RegisterProvider register={register}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <BasicInfo />
+              <EducationInfo />
+              <ProjectInfo />
+              <SkillsInfo />
+              <BasicInput title="Preferred File Name" field="fileName" />
+              <button type="submit">Build</button>
+              <div>
+                <PDFDownloadLink
+                  document={<PDFFile {...formData} />}
+                  fileName={formData?.fileName || "temp"}
+                >
+                  {({ loading }) =>
+                    loading ? (
+                      <button>Loading Document...</button>
+                    ) : (
+                      <button type="button">Download</button>
+                    )
+                  }
+                </PDFDownloadLink>
+              </div>
+            </form>
+          </RegisterProvider>
+        </FormProvider>
       </div>
     </div>
   );
@@ -183,21 +193,85 @@ const BasicInfo: React.FC = () => {
 };
 
 const EducationInfo: React.FC = () => {
+  const { control } = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "education",
+  });
+
   return (
     <>
-      <p className="text-lg font-bold">Education 1</p>
-      <EducationInput eduNum="0" />
-      <p className="text-lg font-bold">Education 2</p>
-      <EducationInput eduNum="1" />
+      <p className="text-lg font-bold">Education</p>
+      {fields.map((field, index) => (
+        <div key={field.id}>
+          <p className="text-lg font-bold">Education {index + 1}</p>
+          {/* toString saved my life */}
+          <EducationInput eduNum={index.toString()} />
+          <button type="button" onClick={() => remove(index)}>
+            Remove Education
+          </button>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => append({ degree: "", year: "", school: "" })}
+      >
+        Add Education
+      </button>
     </>
   );
 };
 
 const ProjectInfo: React.FC = () => {
+  const { control } = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "project",
+  });
   return (
     <>
       <p className="text-lg font-bold">Projects</p>
-      <ProjectInput projNum="0" />
+      {fields.map((field, index) => (
+        <div key={field.id}>
+          <p className="text-lg font-bold">Project {index + 1}</p>
+          {/* toString saved my life */}
+          <ProjectInput projNum={index.toString()} />
+          <button type="button" onClick={() => remove(index)}>
+            Remove Project
+          </button>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => append({ title: "", link: "", description: "" })}
+      >
+        Add Project
+      </button>
+    </>
+  );
+};
+
+const SkillsInfo: React.FC = () => {
+  const { control } = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "skills",
+  });
+
+  return (
+    <>
+      <p className="text-lg font-bold">Skills</p>
+      {fields.map((field, index) => (
+        <div key={field.id}>
+          <BasicInput title={`Skill ${index + 1}`} field={`skills.${index}`} />
+          <button type="button" onClick={() => remove(index)}>
+            Remove Skill
+          </button>
+        </div>
+      ))}
+      <button type="button" onClick={() => append("")}>
+        Add Skill
+      </button>
     </>
   );
 };
