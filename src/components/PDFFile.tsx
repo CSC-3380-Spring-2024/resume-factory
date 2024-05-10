@@ -58,6 +58,15 @@ const PDFFile: React.FC<Partial<ResumeValues>> = (props) => {
             </View>
           ))}
         </View>
+        <View>
+          <Text>Projects</Text>
+          {props.project?.map((item, index) => (
+            <View key={index}>
+              <Link src={item.link}>{item.title}</Link>
+              <Text>{item.description}</Text>
+            </View>
+          ))}
+        </View>
         {/* {props.education?.map((item) => (
           <Text>{item.school}</Text>
         ))}

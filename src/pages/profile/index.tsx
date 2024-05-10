@@ -46,23 +46,6 @@ const Info = z.object({
 
 export type ResumeValues = z.infer<typeof Info>;
 
-// const BasicInput: React.FC<{ field: keyof ResumeValues }> = ({ field }) => {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm<ResumeValues>();
-//   return (
-//     <div>
-//       <label className="font-semibold">Full Name</label>
-//       <input
-//         className="w-full rounded border border-gray-400 px-3 py-2"
-//         {...register(field)}
-//       />
-//     </div>
-//   );
-// };
-
 export default function Profile() {
   const {
     register,
@@ -77,21 +60,28 @@ export default function Profile() {
     console.log(data);
   };
 
-  const BasicInput: React.FC<{
-    title: string;
-    field: string;
-    register: UseFormRegister<ResumeValues>;
-  }> = ({ title, field, register }) => {
-    return (
-      <div>
-        <label className="font-semibold">{title}</label>
-        <input
-          className="w-full rounded border border-gray-400 px-3 py-2"
-          {...register(field as keyof ResumeValues)}
-        />
-      </div>
-    );
-  };
+  {
+    /**Attempting to put functions below main code */
+  }
+  //  Can be universally used for all inputs
+  // Plan to make individual chunks for education and projects.
+  // Individual chunks will supprt mulitple options (0, 1, 2, etc...)
+
+  // const BasicInput: React.FC<{
+  //   title: string;
+  //   field: string;
+  //   register: UseFormRegister<ResumeValues>;
+  // }> = ({ title, field, register }) => {
+  //   return (
+  //     <div>
+  //       <label className="font-semibold">{title}</label>
+  //       <input
+  //         className="w-full rounded border border-gray-400 px-3 py-2"
+  //         {...register(field as keyof ResumeValues)}
+  //       />
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className="container">
@@ -121,7 +111,7 @@ export default function Profile() {
             <BasicInput title="LinkedIn" field="links.1" register={register} />
           </div>
           <p className="text-lg font-bold">Education 1</p>
-          <div className="flex flex-col justify-start">
+          {/* <div className="flex flex-col justify-start">
             <BasicInput
               title="School"
               field="education.0.school"
@@ -137,9 +127,10 @@ export default function Profile() {
               field="education.0.year"
               register={register}
             />
-          </div>
+          </div> */}
+          <EducationInput eduNum="0" register={register} />
           <p className="text-lg font-bold">Education 2</p>
-          <div className="flex flex-col justify-start">
+          {/* <div className="flex flex-col justify-start">
             <BasicInput
               title="School"
               field="education.1.school"
@@ -155,9 +146,10 @@ export default function Profile() {
               field="education.1.year"
               register={register}
             />
-          </div>
+          </div> */}
+          <EducationInput eduNum="1" register={register} />
           <p className="text-lg font-bold">Projects</p>
-          <div className="flex flex-col justify-start">
+          {/* <div className="flex flex-col justify-start">
             <BasicInput
               title="Project Title"
               field="project.0.title"
@@ -173,7 +165,11 @@ export default function Profile() {
               field="project.0.description"
               register={register}
             />
-          </div>
+          </div> */}
+          <ProjectInput projNum="0" register={register} />
+
+          {/* SKILLS WILL GO HERE -> */}
+
           <BasicInput
             title="Preferred File Name"
             field="fileName"
@@ -199,3 +195,71 @@ export default function Profile() {
     </div>
   );
 }
+
+const BasicInput: React.FC<{
+  title: string;
+  field: string;
+  register: UseFormRegister<ResumeValues>;
+}> = ({ title, field, register }) => {
+  return (
+    <div>
+      <label className="font-semibold">{title}</label>
+      <input
+        className="w-full rounded border border-gray-400 px-3 py-2"
+        {...register(field as keyof ResumeValues)}
+      />
+    </div>
+  );
+};
+
+const EducationInput: React.FC<{
+  eduNum: string;
+  register: UseFormRegister<ResumeValues>;
+}> = ({ register, eduNum }) => {
+  const fieldPrefix = `education.${eduNum}.`;
+  return (
+    <div className="flex flex-col justify-start">
+      <BasicInput
+        title="School"
+        field={`${fieldPrefix}school`}
+        register={register}
+      />
+      <BasicInput
+        title="Degree"
+        field={`${fieldPrefix}degree`}
+        register={register}
+      />
+      <BasicInput
+        title="Year of Graduation"
+        field={`${fieldPrefix}year`}
+        register={register}
+      />
+    </div>
+  );
+};
+
+const ProjectInput: React.FC<{
+  projNum: string;
+  register: UseFormRegister<ResumeValues>;
+}> = ({ register, projNum }) => {
+  const fieldPrefix = `project.${projNum}.`;
+  return (
+    <div className="flex flex-col justify-start">
+      <BasicInput
+        title="Title"
+        field={`${fieldPrefix}title`}
+        register={register}
+      />
+      <BasicInput
+        title="Link"
+        field={`${fieldPrefix}link`}
+        register={register}
+      />
+      <BasicInput
+        title="Description"
+        field={`${fieldPrefix}description`}
+        register={register}
+      />
+    </div>
+  );
+};
