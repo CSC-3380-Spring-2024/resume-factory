@@ -33,7 +33,6 @@ const PDFFile: React.FC<Partial<ResumeValues>> = (props) => {
   return (
     <Document>
       <Page style={styles.Body}>
-        <Text>{props.fileName}</Text>
         <Text>{props.name}</Text>
         <Text>{props.number}</Text>
         <Text>{props.email}</Text>
@@ -67,15 +66,6 @@ const PDFFile: React.FC<Partial<ResumeValues>> = (props) => {
             </View>
           ))}
         </View>
-        {/* {props.education?.map((item) => (
-          <Text>{item.school}</Text>
-        ))}
-        {props.education?.map((item) => (
-          <Text>{item.year}</Text>
-        ))} */}
-        {/* <Text>{props.}</Text>
-        <Text>{props.}</Text>
-        <Text>{props.}</Text> */}
       </Page>
     </Document>
   );

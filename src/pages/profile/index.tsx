@@ -4,8 +4,35 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import PDFFile from "~/components/PDFFile";
-import React, { useState } from "react";
+import React, { useState, createContext, useContext } from "react";
 // import { usePDF } from "@react-pdf/renderer";
+
+// Register function
+const RegisterContext = createContext<
+  UseFormRegister<ResumeValues> | undefined
+>(undefined);
+
+// Custom hook to use the register function from context
+export const useRegister = () => {
+  const register = useContext(RegisterContext);
+  if (!register) {
+    throw new Error("useRegister must be used within a RegisterProvider");
+  }
+  return register;
+};
+
+// Provider component to wrap around the top-level component
+export const RegisterProvider: React.FC<{
+  register: UseFormRegister<ResumeValues>;
+  children: React.ReactNode;
+}> = ({ register, children }) => {
+  return (
+    <RegisterContext.Provider value={register}>
+      {children}
+    </RegisterContext.Provider>
+  );
+};
+
 const PDFDownloadLink = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
   {
@@ -60,29 +87,6 @@ export default function Profile() {
     console.log(data);
   };
 
-  {
-    /**Attempting to put functions below main code */
-  }
-  //  Can be universally used for all inputs
-  // Plan to make individual chunks for education and projects.
-  // Individual chunks will supprt mulitple options (0, 1, 2, etc...)
-
-  // const BasicInput: React.FC<{
-  //   title: string;
-  //   field: string;
-  //   register: UseFormRegister<ResumeValues>;
-  // }> = ({ title, field, register }) => {
-  //   return (
-  //     <div>
-  //       <label className="font-semibold">{title}</label>
-  //       <input
-  //         className="w-full rounded border border-gray-400 px-3 py-2"
-  //         {...register(field as keyof ResumeValues)}
-  //       />
-  //     </div>
-  //   );
-  // };
-
   return (
     <div className="container">
       <Head>
@@ -93,54 +97,33 @@ export default function Profile() {
         Welcome To The Factory
       </h1>
       <div className="">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Testing component method for reduce wear on main() */}
-          <p className="text-lg font-bold">Basic Information</p>
-          <div className="flex flex-col justify-start">
-            <BasicInput title="Full Name" field="name" register={register} />
+        <RegisterProvider register={register}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <BasicInfo />
+            <EducationInfo />
+            <ProjectInfo />
+            {/* SKILLS WILL GO HERE -> */}
             <BasicInput
-              title="Phone Number"
-              field="number"
-              register={register}
-            />
-            <BasicInput
-              title="Email Address"
-              field="email"
-              register={register}
-            />
-            <BasicInput title="GitHub" field="links.0" register={register} />
-            <BasicInput title="LinkedIn" field="links.1" register={register} />
-          </div>
-          <p className="text-lg font-bold">Education 1</p>
-          <EducationInput eduNum="0" register={register} />
-          <p className="text-lg font-bold">Education 2</p>
-          <EducationInput eduNum="1" register={register} />
-          <p className="text-lg font-bold">Projects</p>
-          <ProjectInput projNum="0" register={register} />
-
-          {/* SKILLS WILL GO HERE -> */}
-
-          <BasicInput
-            title="Preferred File Name"
-            field="fileName"
-            register={register}
-          ></BasicInput>
-          <button type="submit">Build</button>
-          <div>
-            <PDFDownloadLink
-              document={<PDFFile {...formData} />}
-              fileName={formData?.fileName || "temp"}
-            >
-              {({ loading }) =>
-                loading ? (
-                  <button>Loading Document...</button>
-                ) : (
-                  <button type="button">Download</button>
-                )
-              }
-            </PDFDownloadLink>
-          </div>
-        </form>
+              title="Preferred File Name"
+              field="fileName"
+            ></BasicInput>
+            <button type="submit">Build</button>
+            <div>
+              <PDFDownloadLink
+                document={<PDFFile {...formData} />}
+                fileName={formData?.fileName || "temp"}
+              >
+                {({ loading }) =>
+                  loading ? (
+                    <button>Loading Document...</button>
+                  ) : (
+                    <button type="button">Download</button>
+                  )
+                }
+              </PDFDownloadLink>
+            </div>
+          </form>
+        </RegisterProvider>
       </div>
     </div>
   );
@@ -149,8 +132,8 @@ export default function Profile() {
 const BasicInput: React.FC<{
   title: string;
   field: string;
-  register: UseFormRegister<ResumeValues>;
-}> = ({ title, field, register }) => {
+}> = ({ title, field }) => {
+  const register = useRegister();
   return (
     <div>
       <label className="font-semibold">{title}</label>
@@ -164,70 +147,61 @@ const BasicInput: React.FC<{
 
 const EducationInput: React.FC<{
   eduNum: string;
-  register: UseFormRegister<ResumeValues>;
-}> = ({ register, eduNum }) => {
+}> = ({ eduNum }) => {
   const fieldPrefix = `education.${eduNum}.`;
   return (
     <div className="flex flex-col justify-start">
-      <BasicInput
-        title="School"
-        field={`${fieldPrefix}school`}
-        register={register}
-      />
-      <BasicInput
-        title="Degree"
-        field={`${fieldPrefix}degree`}
-        register={register}
-      />
-      <BasicInput
-        title="Year of Graduation"
-        field={`${fieldPrefix}year`}
-        register={register}
-      />
+      <BasicInput title="School" field={`${fieldPrefix}school`} />
+      <BasicInput title="Degree" field={`${fieldPrefix}degree`} />
+      <BasicInput title="Year of Graduation" field={`${fieldPrefix}year`} />
     </div>
   );
 };
 
 const ProjectInput: React.FC<{
   projNum: string;
-  register: UseFormRegister<ResumeValues>;
-}> = ({ register, projNum }) => {
+}> = ({ projNum }) => {
   const fieldPrefix = `project.${projNum}.`;
   return (
     <div className="flex flex-col justify-start">
-      <BasicInput
-        title="Title"
-        field={`${fieldPrefix}title`}
-        register={register}
-      />
-      <BasicInput
-        title="Link"
-        field={`${fieldPrefix}link`}
-        register={register}
-      />
-      <BasicInput
-        title="Description"
-        field={`${fieldPrefix}description`}
-        register={register}
-      />
+      <BasicInput title="Title" field={`${fieldPrefix}title`} />
+      <BasicInput title="Link" field={`${fieldPrefix}link`} />
+      <BasicInput title="Description" field={`${fieldPrefix}description`} />
     </div>
   );
 };
 
-// const BasicInfo: React.FC = () => {
-//   return(
-//     <><p className="text-lg font-bold">Basic Information</p><div className="flex flex-col justify-start">
-//       <BasicInput title="Full Name" field="name" register={register} />
-//       <BasicInput
-//         title="Phone Number"
-//         field="number"
-//         register={register} />
-//       <BasicInput
-//         title="Email Address"
-//         field="email"
-//         register={register} />
-//       <BasicInput title="GitHub" field="links.0" register={register} />
-//       <BasicInput title="LinkedIn" field="links.1" register={register} />
-//     </div></>
-//   );
-// };
+const BasicInfo: React.FC = () => {
+  return (
+    <>
+      <p className="text-lg font-bold">Basic Information</p>
+      <div className="flex flex-col justify-start">
+        <BasicInput title="Full Name" field="name" />
+        <BasicInput title="Phone Number" field="number" />
+        <BasicInput title="Email Address" field="email" />
+        <BasicInput title="GitHub" field="links.0" />
+        <BasicInput title="LinkedIn" field="links.1" />
+      </div>
+    </>
+  );
+};
+
+const EducationInfo: React.FC = () => {
+  return (
+    <>
+      <p className="text-lg font-bold">Education 1</p>
+      <EducationInput eduNum="0" />
+      <p className="text-lg font-bold">Education 2</p>
+      <EducationInput eduNum="1" />
+    </>
+  );
+};
+
+const ProjectInfo: React.FC = () => {
+  return (
+    <>
+      <p className="text-lg font-bold">Projects</p>
+      <ProjectInput projNum="0" />
+    </>
+  );
+};
